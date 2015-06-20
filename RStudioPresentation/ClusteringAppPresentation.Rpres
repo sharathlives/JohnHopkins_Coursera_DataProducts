@@ -1,0 +1,66 @@
+Clustering Prototype
+========================================================
+author: Sharath Gokula
+date: June-15-2015
+font-family: 'Garamond'
+
+Applications of Clustering in Marketing
+========================================================
+
+This application provides an automated approach to clustering. Clustering is a technique that can help guide your marketing strategy by:
+
+
+- Identifying characteristics of products that are similar
+- Identifying groups of customers that are alike 
+- Dividing your target market into subsets of businesses
+
+How can clustering help your business?
+========================================================
+- You can segment your customer base to target them with customized promotions
+- You can establish differences between your products and your competitor's products
+- You can identify geogrpahic markets that are similar to your current location
+
+
+Steps Involved
+========================================================
+Step 1: Analyze the dataset to pick the variables
+<br>
+<br>
+Step 2: Normalize the data to ensure larger values do not dominate
+<br>
+<br>
+Step 3: Build the cluster model
+<br>
+<br>
+Step 4: Compute the average for each of the clusters
+<br>
+<br>
+Step 5: Define characteristics of each of the clusters
+
+
+The algortihm 
+========================================================
+
+```{r, results='hide'}
+library(caret)
+summary(cars) #Analyzes the data
+preproc = preProcess(cars) #preprocesses the data
+airlinesNorm = predict(preproc, cars) #does the normalization
+kMeansClusters <- kmeans(cars, 3) #Clusters the data
+tapply(cars$speed, kMeansClusters$cluster, mean) #Compute the average of each cluster
+```
+
+Graphical Representation of Clusters
+========================================================
+
+```{r, echo = FALSE}
+x <- c(15, 20, 30)
+y <- c(150, 100, 100)
+par(mar = c(5.1, 4.1, 0, 1))
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+             "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+plot(mtcars$mpg, mtcars$hp,
+         col = mtcars$gear,
+         pch = 20, cex = 3, xlab = 'Miles Per Gallon', ylab = 'Horse Power')
+points(x, y, pch = 4, cex = 4, lwd = 4)
+```
